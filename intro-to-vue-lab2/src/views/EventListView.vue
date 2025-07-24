@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import EventCard from '@/components/Eventcard.vue'
+import EventCard from '@/components/EventCard.vue'
 import CategoryOrganizer from '@/components/CategoryOrganizer.vue'
 import type { Event } from '@/type'
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import EventService from '@/services/EventService'
 
 const events = ref<Event[]>()
   
 onMounted(() => {
-  axios
-    .get('[your mock server url]')
-    .then((response) => {
-      console.log(response.data)
-    })
+  
+    EventService.getEvents()
+  .then((response) =>{
+    events.value = response.data
+  })
     .catch((error) => {
       console.error('There was an error!', error)
     })

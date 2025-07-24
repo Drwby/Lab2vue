@@ -25,7 +25,7 @@ onMounted(() => {
     <!--new element-->
   <div class="events">
     <div v-for="event in events" :key="event.id" class="event-wrapper">
-      <EventCard :event="event"  />
+      <EventCard :event="event"   />
       <CategoryOrganizer :category="event.category" :organizer="event.organizer" />
     </div>
   </div>

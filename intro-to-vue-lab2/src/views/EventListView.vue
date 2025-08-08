@@ -43,77 +43,51 @@ const changeLimit = () => {
 </script>
 
 <template>
-  <h1>Events For Good</h1>
+  <h1 class="text-2xl font-bold">Events For Good</h1>
 
   <!-- Limit Selector -->
-  <div class="limit-selector">
+  <div class="mb-4 flex justify-center items-center gap-2 text-base w-full">
     <label for="limit">Events per page:</label>
-    <select id="limit" v-model.number="selectedLimit" @change="changeLimit">
+    <select
+      id="limit"
+      v-model.number="selectedLimit"
+      @change="changeLimit"
+      class="border border-gray-300 rounded px-2 py-1"
+    >
       <option :value="2">2</option>
       <option :value="5">5</option>
       <option :value="10">10</option>
     </select>
   </div>
 
-  <div class="events">
-    <EventCard v-for="event in events" :key="event.id" :event="event" />
+  <div class="w-full max-w-xl mx-auto flex flex-col gap-6">
+  <EventCard
+    v-for="event in events"
+    :key="event.id"
+    :event="event"
+  />
 
-    <div class="pagination">
-      <RouterLink
-        id="page-prev"
-        :to="{ name: 'event-list-view', query: { page: page - 1, limit: limit } }"
-        rel="prev"
-        v-if="page !== 1"
-      >
-        &#60; Prev Page
-      </RouterLink>
+  <div class="flex w-[290px] mx-auto">
+    <RouterLink
+      id="page-prev"
+      :to="{ name: 'event-list-view', query: { page: page - 1, limit: limit } }"
+      rel="prev"
+      v-if="page !== 1"
+      class="flex-1 text-left text-[#2c3e50] no-underline"
+    >
+      &#60; Prev Page
+    </RouterLink>
 
-      <RouterLink
-        id="page-next"
-        :to="{ name: 'event-list-view', query: { page: page + 1, limit: limit } }"
-        rel="next"
-        v-if="hasNextPage"
-      >
-        Next Page &#62;
-      </RouterLink>
-    </div>
+    <RouterLink
+      id="page-next"
+      :to="{ name: 'event-list-view', query: { page: page + 1, limit: limit } }"
+      rel="next"
+      v-if="hasNextPage"
+      class="flex-1 text-right text-[#2c3e50] no-underline"
+    >
+      Next Page &#62;
+    </RouterLink>
   </div>
+</div>
+
 </template>
-
-<style scoped>
-.events {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-}
-.event-wrapper {
-  width: 100%;
-  max-width: 600px;
-}
-.pagination {
-  display: flex;
-  width: 290px;
-}
-.pagination a {
-  flex: 1;
-  text-decoration: none;
-  color: #2c3e50;
-}
-#page-prev {
-  text-align: left;
-}
-#page-next {
-  text-align: right;
-}
-.limit-selector {
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-  width: 100%;
-}
-
-</style>
